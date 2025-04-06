@@ -8,8 +8,10 @@
 class App
 {
 public:
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	SDL_Window *window{nullptr};
+	SDL_Renderer *renderer{nullptr};
+
+	int frame_time;
 	SDL_Event event;
 	bool running{true};
 

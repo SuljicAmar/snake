@@ -7,18 +7,17 @@ void App::init()
 		SDL_Log("Failed initializing SDL: %s", SDL_GetError());
 		running = false;
 	}
+
 	if (!SDL_CreateWindowAndRenderer("Snake", screen_width, screen_height, 0, &window, &renderer))
 	{
 		SDL_Log("Failed creating window/renderer: %s", SDL_GetError());
 		running = false;
 	}
-};
+}
 
 void App::game_loop(Snake &snake, Food &food)
 {
 	Uint64 frame_start{SDL_GetTicksNS()};
-	constexpr Uint64 ns_per_frame = 1000000000 / 30;
-	int frame_time;
 
 	while (SDL_PollEvent(&event))
 	{
@@ -66,10 +65,11 @@ void App::game_loop(Snake &snake, Food &food)
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
+
 	food.draw(renderer);
 	snake.draw(renderer);
-	SDL_RenderPresent(renderer);
 
+	SDL_RenderPresent(renderer);
 	frame_time = SDL_GetTicksNS() - frame_start;
 
 	if (frame_time < ns_per_frame)
