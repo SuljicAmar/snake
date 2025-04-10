@@ -64,8 +64,9 @@ void Snake::draw(SDL_Renderer *renderer) {
   SDL_RenderFillRect(renderer, &body[0]);
 };
 
-bool Snake::ate_food(int food_x, int food_y) {
-  if (head.x == food_x && head.y == food_y) {
+bool Snake::ate_food(SDL_Point food_cordinates) {
+  if (head.x == food_cordinates.x && head.y == food_cordinates.y) {
+    size++;
     return true;
   }
   return false;
@@ -81,21 +82,20 @@ bool Snake::ate_self() {
 };
 
 void Snake::out_of_bounds() {
-  if (head.x > screen_width) {
+  if (head.x > window_width) {
     head.x = 0;
   } else if (head.x < 0) {
-    head.x = screen_width;
-  }
-  if (head.y > screen_height) {
+    head.x = window_width;
+  } else if (head.y > window_height) {
     head.y = 0;
   } else if (head.y < 0) {
-    head.y = screen_height;
+    head.y = window_height;
   }
 };
 
 void Snake::reset() {
   size = 1;
-  head.x = screen_width / 2;
-  head.y = screen_height / 2;
+  head.x = window_width / 2;
+  head.y = window_height / 2;
   body.clear();
 };

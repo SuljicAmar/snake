@@ -5,14 +5,13 @@
 Food::Food() { create(); };
 
 void Food::create() {
-  rect = {(float)(SDL_rand(screen_width / rect_size) * rect_size),
-          (float)(SDL_rand(screen_height / rect_size) * rect_size), rect_size,
-          rect_size};
-  x = rect.x;
-  y = rect.y;
+  m_rect = {(float)(SDL_rand(window_width / rect_size) * rect_size),
+            (float)(SDL_rand(window_height / rect_size) * rect_size), rect_size,
+            rect_size};
 };
 
-void Food::draw(SDL_Renderer *renderer) {
-  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-  SDL_RenderFillRect(renderer, &rect);
+SDL_FRect *Food::get_rect() { return &m_rect; }
+
+SDL_Point Food::get_cordinates() {
+  return (SDL_Point){.x = (int)m_rect.x, .y = (int)m_rect.y};
 };

@@ -2,19 +2,20 @@
 #define FOOD_H
 #include <SDL3/SDL.h>
 
-class Food
-{
+class Food {
 public:
-	Food();
-	int x;
-	int y;
+  Food();
 
-	void create();
+  void create();
 
-	void draw(SDL_Renderer *renderer);
+  void draw(SDL_Renderer *renderer);
+
+  SDL_FRect *get_rect();
+
+  SDL_Point get_cordinates();
 
 private:
-	SDL_FRect rect;
+  SDL_FRect m_rect;
 };
 
 #endif
