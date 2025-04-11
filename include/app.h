@@ -9,11 +9,11 @@
 
 class App {
 public:
-  SDL_FRect *food_rect;
-  int frame_time;
-  SDL_Event event;
-  Uint64 ns_per_frame = 1000000000 / 30;
-  bool running{true};
+  int m_frame_time;
+  Uint64 m_ns_per_frame = 1000000000 / 30;
+  Uint64 m_frame_start;
+  SDL_Event m_event;
+  bool m_running{true};
 
   bool init(Window &window, Renderer &renderer);
 

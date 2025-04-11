@@ -1,12 +1,11 @@
 #ifndef FOOD_H
 #define FOOD_H
 #include <SDL3/SDL.h>
+#include <deque>
 
 class Food {
 public:
   Food();
-
-  void create();
 
   void draw(SDL_Renderer *renderer);
 
@@ -14,8 +13,11 @@ public:
 
   SDL_Point get_cordinates();
 
+  void create(std::deque<SDL_FRect> &body);
+
 private:
   SDL_FRect m_rect;
+  void create_rect();
 };
 
 #endif
