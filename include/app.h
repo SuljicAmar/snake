@@ -9,11 +9,11 @@
 
 class App {
 public:
-  int m_frame_time;
-  Uint64 m_ns_per_frame = 1000000000 / 30;
-  Uint64 m_frame_start;
-  SDL_Event m_event;
-  bool m_running{true};
+  int frame_time;
+  Uint64 ns_per_frame = 1000000000 / 30;
+  Uint64 frame_start;
+  SDL_Event event;
+  bool running{true};
 
   bool init(Window &window, Renderer &renderer);
 

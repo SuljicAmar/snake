@@ -6,30 +6,30 @@ void Snake::set_direction(SDL_Event event) {
   switch (event.key.scancode) {
   case SDL_SCANCODE_W:
   case SDL_SCANCODE_UP:
-    if (m_direction != down) {
-      m_direction = up;
+    if (direction != down) {
+      direction = up;
     }
     break;
   case SDL_SCANCODE_A:
   case SDL_SCANCODE_LEFT:
 
-    if (m_direction != right) {
-      m_direction = left;
+    if (direction != right) {
+      direction = left;
     }
 
     break;
   case SDL_SCANCODE_S:
   case SDL_SCANCODE_DOWN:
 
-    if (m_direction != up) {
-      m_direction = down;
+    if (direction != up) {
+      direction = down;
     }
     break;
   case SDL_SCANCODE_D:
   case SDL_SCANCODE_RIGHT:
 
-    if (m_direction != left) {
-      m_direction = right;
+    if (direction != left) {
+      direction = right;
     }
     break;
   default:
@@ -38,43 +38,43 @@ void Snake::set_direction(SDL_Event event) {
 }
 
 void Snake::move() {
-  switch (m_direction) {
+  switch (direction) {
   case down:
-    m_head.y += k_rect_size;
+    head.y += rect_size;
     break;
   case up:
-    m_head.y -= k_rect_size;
+    head.y -= rect_size;
     break;
   case left:
-    m_head.x -= k_rect_size;
+    head.x -= rect_size;
     break;
   case right:
-    m_head.x += k_rect_size;
+    head.x += rect_size;
     break;
   }
   out_of_bounds();
 };
 
 void Snake::draw(SDL_Renderer *renderer) {
-  for (SDL_FRect snake_segment : m_body) {
+  for (SDL_FRect snake_segment : body) {
     SDL_SetRenderDrawColor(renderer, 143, 188, 143, 255);
     SDL_RenderFillRect(renderer, &snake_segment);
   }
   SDL_SetRenderDrawColor(renderer, 0, 255, 127, 255);
-  SDL_RenderFillRect(renderer, &m_body[0]);
+  SDL_RenderFillRect(renderer, &body[0]);
 };
 
 bool Snake::ate_food(SDL_Point food_cordinates) {
-  if (m_head.x == food_cordinates.x && m_head.y == food_cordinates.y) {
-    m_size++;
+  if (head.x == food_cordinates.x && head.y == food_cordinates.y) {
+    size++;
     return true;
   }
   return false;
 };
 
 bool Snake::ate_self() {
-  for (SDL_FRect snake_segment : m_body) {
-    if (m_head.x == snake_segment.x && m_head.y == snake_segment.y) {
+  for (SDL_FRect snake_segment : body) {
+    if (head.x == snake_segment.x && head.y == snake_segment.y) {
       return true;
     }
   }
@@ -82,27 +82,27 @@ bool Snake::ate_self() {
 };
 
 void Snake::out_of_bounds() {
-  if (m_head.x > k_window_width) {
-    m_head.x = 0;
-  } else if (m_head.x < 0) {
-    m_head.x = k_window_width;
-  } else if (m_head.y > k_window_height) {
-    m_head.y = 0;
-  } else if (m_head.y < 0) {
-    m_head.y = k_window_height;
+  if (head.x > window_width) {
+    head.x = 0;
+  } else if (head.x < 0) {
+    head.x = window_width;
+  } else if (head.y > window_height) {
+    head.y = 0;
+  } else if (head.y < 0) {
+    head.y = window_height;
   }
 };
 
 void Snake::reset() {
-  m_size = 1;
-  m_head.x = k_window_width / 2;
-  m_head.y = k_window_height / 2;
-  m_body.clear();
+  size = 1;
+  head.x = window_width / 2;
+  head.y = window_height / 2;
+  body.clear();
 };
 
 void Snake::handle_size() {
-  m_body.push_front(m_head);
-  while (m_body.size() > m_size) {
-    m_body.pop_back();
+  body.push_front(head);
+  while (body.size() > size) {
+    body.pop_back();
   }
 };

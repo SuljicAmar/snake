@@ -3,13 +3,13 @@
 #include "../include/window.h"
 
 int main() {
-  Window window("Snake", k_window_width, k_window_height);
+  Window window("Snake", window_width, window_height);
   Renderer renderer;
   App app;
   if (app.init(window, renderer)) {
     Snake snake;
     Food food;
-    while (app.m_running) {
+    while (app.running) {
       app.game_loop(snake, food, renderer);
     }
   }

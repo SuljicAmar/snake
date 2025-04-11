@@ -14,10 +14,10 @@ public:
   SDL_Window *get_window();
 
 private:
-  SDL_Window *m_window{nullptr};
-  char *m_name;
-  int m_width;
-  int m_height;
+  SDL_Window *window{nullptr};
+  char *name;
+  int width;
+  int height;
 };
 
 #endif

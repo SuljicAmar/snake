@@ -16,7 +16,7 @@ public:
   void clear();
 
 private:
-  SDL_Renderer *m_renderer{nullptr};
+  SDL_Renderer *renderer{nullptr};
 };
 
 #endif

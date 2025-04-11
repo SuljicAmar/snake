@@ -7,14 +7,14 @@
 
 class Snake {
 public:
-  int m_size{1};
+  int size{1};
   enum Direction { down, left, right, up };
 
-  SDL_FRect m_head{.x = k_window_width / 2,
-                   .y = k_window_height / 2,
-                   .w = k_rect_size,
-                   .h = k_rect_size};
-  std::deque<SDL_FRect> m_body;
+  SDL_FRect head{.x = window_width / 2,
+                 .y = window_height / 2,
+                 .w = rect_size,
+                 .h = rect_size};
+  std::deque<SDL_FRect> body;
 
   Snake();
 
@@ -35,7 +35,7 @@ public:
   void handle_size();
 
 private:
-  Direction m_direction{right};
+  Direction direction{right};
 };
 
 #endif

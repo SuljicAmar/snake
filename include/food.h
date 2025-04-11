@@ -16,7 +16,7 @@ public:
   void create(std::deque<SDL_FRect> &body);
 
 private:
-  SDL_FRect m_rect;
+  SDL_FRect rect;
   void create_rect();
 };
 
