@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
-#include <SDL3/SDL.h>
+
+#include <SDL3/SDL_render.h>
 
 class Renderer {
 public:
@@ -14,6 +15,8 @@ public:
   void update();
 
   void clear();
+
+  void draw_grid();
 
 private:
   SDL_Renderer *renderer{nullptr};

@@ -2,7 +2,8 @@
 #define SNAKE_H
 
 #include "defs.h"
-#include <SDL3/SDL.h>
+#include <SDL3/SDL_events.h>
+#include <SDL3/SDL_rect.h>
 #include <deque>
 
 class Snake {
@@ -21,8 +22,6 @@ public:
   void set_direction(SDL_Event event);
 
   void move();
-
-  void draw(SDL_Renderer *renderer);
 
   bool ate_food(SDL_Point food_cordinates);
 

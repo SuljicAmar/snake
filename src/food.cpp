@@ -1,10 +1,11 @@
 #include "../include/food.h"
 #include "../include/defs.h"
-#include <SDL3/SDL.h>
 
 Food::Food() { create_rect(); };
 
 void Food::create_rect() {
+  // create rect with random cordinates, accounting for int size of rect
+  // so snake collision works properly
   rect = {(float)(SDL_rand(window_width / rect_size) * rect_size),
           (float)(SDL_rand(window_height / rect_size) * rect_size), rect_size,
           rect_size};
@@ -17,6 +18,7 @@ SDL_Point Food::get_cordinates() {
 };
 
 void Food::create(std::deque<SDL_FRect> &body) {
+  // ensure new food is not on top of snake
   bool keep_creating{true};
   while (keep_creating) {
     keep_creating = false;
@@ -28,4 +30,4 @@ void Food::create(std::deque<SDL_FRect> &body) {
       }
     }
   }
-}
+};

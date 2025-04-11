@@ -3,6 +3,7 @@
 Snake::Snake() {};
 
 void Snake::set_direction(SDL_Event event) {
+  // set direction based off input
   switch (event.key.scancode) {
   case SDL_SCANCODE_W:
   case SDL_SCANCODE_UP:
@@ -38,6 +39,7 @@ void Snake::set_direction(SDL_Event event) {
 }
 
 void Snake::move() {
+  // move snake according to direction
   switch (direction) {
   case down:
     head.y += rect_size;
@@ -55,16 +57,8 @@ void Snake::move() {
   out_of_bounds();
 };
 
-void Snake::draw(SDL_Renderer *renderer) {
-  for (SDL_FRect snake_segment : body) {
-    SDL_SetRenderDrawColor(renderer, 143, 188, 143, 255);
-    SDL_RenderFillRect(renderer, &snake_segment);
-  }
-  SDL_SetRenderDrawColor(renderer, 0, 255, 127, 255);
-  SDL_RenderFillRect(renderer, &body[0]);
-};
-
 bool Snake::ate_food(SDL_Point food_cordinates) {
+  // check collision with food
   if (head.x == food_cordinates.x && head.y == food_cordinates.y) {
     size++;
     return true;
@@ -73,6 +67,7 @@ bool Snake::ate_food(SDL_Point food_cordinates) {
 };
 
 bool Snake::ate_self() {
+  // check collision with self
   for (SDL_FRect snake_segment : body) {
     if (head.x == snake_segment.x && head.y == snake_segment.y) {
       return true;
@@ -82,18 +77,16 @@ bool Snake::ate_self() {
 };
 
 void Snake::out_of_bounds() {
-  if (head.x > window_width) {
-    head.x = 0;
-  } else if (head.x < 0) {
-    head.x = window_width;
-  } else if (head.y > window_height) {
-    head.y = 0;
-  } else if (head.y < 0) {
-    head.y = window_height;
+  // reset if snake goes out of bounds
+  // (same as if snake ate self)
+  if (head.x > window_width || head.x < 0 || head.y > window_height ||
+      head.y < 0) {
+    reset();
   }
 };
 
 void Snake::reset() {
+  // reset snake if collides with self
   size = 1;
   head.x = window_width / 2;
   head.y = window_height / 2;
@@ -101,6 +94,9 @@ void Snake::reset() {
 };
 
 void Snake::handle_size() {
+  // used to reset snake when reset() is called
+  // and allows us to constantly add and draw new heads
+  // in main game loop as its constantly "cleaning up"
   body.push_front(head);
   while (body.size() > size) {
     body.pop_back();

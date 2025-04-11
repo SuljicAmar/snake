@@ -4,22 +4,24 @@
 #include "food.h"
 #include "renderer.h"
 #include "snake.h"
+#include "timer.h"
 #include "window.h"
 #include <SDL3/SDL.h>
 
 class App {
 public:
-  int frame_time;
-  Uint64 ns_per_frame = 1000000000 / 30;
-  Uint64 frame_start;
   SDL_Event event;
   bool running{true};
 
+  App();
+
   bool init(Window &window, Renderer &renderer);
 
-  void game_loop(Snake &snake, Food &food, Renderer &renderer);
+  void game_loop(Snake &snake, Food &food, Renderer &renderer, Timer &timer);
 
   void quit();
+
+  void handle_input(Snake &snake);
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef FOOD_H
 #define FOOD_H
-#include <SDL3/SDL.h>
+
+#include <SDL3/SDL_rect.h>
+#include <SDL3/SDL_render.h>
 #include <deque>
 
 class Food {
