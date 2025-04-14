@@ -2,9 +2,11 @@
 
 Developed using C++ and SDL3
 
-![demo](https://github.com/user-attachments/assets/4d523e9f-b9f8-4b9a-a1c3-8293da7667a6)
-
 Some features:
 - Intro screen and game over screen with instant restart
 - Sound effects 
 - Background music
+
+https://github.com/user-attachments/assets/d35b85d6-8825-4277-b11d-b5ec37fd46cd
+
+
