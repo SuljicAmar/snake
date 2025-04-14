@@ -1,25 +1,16 @@
 #include "../include/app.h"
-#include "../include/renderer.h"
-#include "../include/timer.h"
-#include "../include/window.h"
 
 int main() {
   // initalize SDL and App objs
-  Window window("Snake", window_width, window_height);
-  Renderer renderer;
   App app;
+  app.init();
 
-  // continue to game loop if SDL loads OK
-  if (app.init(window, renderer)) {
-    Snake snake;
-    Food food;
-    Timer timer;
-    while (app.running) {
-      app.game_loop(snake, food, renderer, timer);
-    }
+  // app.init populates state variable
+  while (app.get_game_state().running) {
+    app.play();
   }
 
-  // close app if SDL fails to init or app stops running
+  // close app
   app.quit();
   return 0;
 };

@@ -1,9 +1,11 @@
 #include "../include/renderer.h"
-#include "../include/defs.h"
 
 Renderer::Renderer() {};
 
-Renderer::~Renderer() { SDL_DestroyRenderer(renderer); };
+void Renderer::close() {
+  SDL_DestroyRenderer(renderer);
+  renderer = nullptr;
+};
 
 SDL_Renderer *Renderer::get_renderer() { return renderer; }
 
@@ -15,7 +17,7 @@ bool Renderer ::create_renderer(SDL_Window *window) {
   return true;
 }
 
-void Renderer::draw_rect(SDL_FRect *rect, int r, int g, int b, int a) {
+void Renderer::draw_rect(SDL_FRect *rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
   SDL_SetRenderDrawColor(renderer, r, g, b, a);
   SDL_RenderFillRect(renderer, rect);
 }
@@ -23,19 +25,32 @@ void Renderer::draw_rect(SDL_FRect *rect, int r, int g, int b, int a) {
 void Renderer::update() { SDL_RenderPresent(renderer); }
 
 void Renderer::clear() {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_SetRenderDrawColor(renderer, 31, 25, 40, 255);
   SDL_RenderClear(renderer);
 };
 
-void Renderer::draw_grid() {
+void Renderer::draw_grid(int max_x, int max_y, int cell_size) {
   // since window width and window height are same
   // could just do 1 loop but splitting it up
   // in case of future updates to sizing
-  SDL_SetRenderDrawColor(renderer, 66, 66, 66, 255);
-  for (int i = 0; i <= window_width; i += rect_size) {
-    SDL_RenderLine(renderer, i, 0.0, i, window_height);
+  SDL_SetRenderDrawColor(renderer, 40, 35, 57, 255);
+  for (int i = 0; i <= max_x; i += cell_size) {
+    SDL_RenderLine(renderer, i, 0.0, i, max_y);
   };
-  for (int i = 0; i <= window_height; i += rect_size) {
-    SDL_RenderLine(renderer, 0.0, i, window_width, i);
+  for (int i = 0; i <= max_y; i += cell_size) {
+    SDL_RenderLine(renderer, 0.0, i, max_x, i);
   };
+};
+
+void Renderer::draw_surface(SDL_Surface *surface, int x, int y) {
+  // used for rendering Text
+  SDL_Texture *texture{SDL_CreateTextureFromSurface(renderer, surface)};
+  int surface_width{surface->w};
+  int surface_height{surface->h};
+  SDL_DestroySurface(surface);
+  SDL_FRect texture_space = {(x - surface_width) / 2.f,
+                             (y - surface_height) / 2.f, (float)surface_width,
+                             (float)surface_height};
+  SDL_RenderTexture(renderer, texture, nullptr, &texture_space);
+  SDL_DestroyTexture(texture);
 };

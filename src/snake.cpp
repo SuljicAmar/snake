@@ -38,7 +38,7 @@ void Snake::set_direction(SDL_Event event) {
   }
 }
 
-void Snake::move() {
+void Snake::move(int rect_size) {
   // move snake according to direction
   switch (direction) {
   case down:
@@ -54,13 +54,11 @@ void Snake::move() {
     head.x += rect_size;
     break;
   }
-  out_of_bounds();
 };
 
 bool Snake::ate_food(SDL_Point food_cordinates) {
   // check collision with food
   if (head.x == food_cordinates.x && head.y == food_cordinates.y) {
-    size++;
     return true;
   }
   return false;
@@ -76,20 +74,21 @@ bool Snake::ate_self() {
   return false;
 };
 
-void Snake::out_of_bounds() {
-  // reset if snake goes out of bounds
-  // (same as if snake ate self)
-  if (head.x > window_width || head.x < 0 || head.y > window_height ||
-      head.y < 0) {
-    reset();
+bool Snake::out_of_bounds(int window_width, int window_height) {
+  // check out of bounds
+  for (SDL_FRect snake_segment : body) {
+    if (snake_segment.x > window_width || snake_segment.x < 0 ||
+        snake_segment.y > window_height || snake_segment.y < 0) {
+      return true;
+    }
   }
+  return false;
 };
 
-void Snake::reset() {
+void Snake::reset(int window_width, int window_height, int rect_size) {
   // reset snake if collides with self
   size = 1;
-  head.x = window_width / 2;
-  head.y = window_height / 2;
+  create_head(window_width, window_height, rect_size);
   body.clear();
 };
 
@@ -101,4 +100,13 @@ void Snake::handle_size() {
   while (body.size() > size) {
     body.pop_back();
   }
+};
+
+std::string Snake::get_size_as_str() { return std::to_string(size - 1); };
+
+void Snake::create_head(int window_width, int window_height, int rect_size) {
+  head = {.x = window_width / 2.f,
+          .y = window_height / 2.f,
+          .w = (float)rect_size,
+          .h = (float)rect_size};
 };

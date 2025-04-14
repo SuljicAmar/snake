@@ -1,33 +1,17 @@
 #include "../include/food.h"
-#include "../include/defs.h"
 
-Food::Food() { create_rect(); };
+Food::Food() {};
 
-void Food::create_rect() {
+void Food::create(int window_width, int window_height, int rect_size) {
   // create rect with random cordinates, accounting for int size of rect
   // so snake collision works properly
   rect = {(float)(SDL_rand(window_width / rect_size) * rect_size),
-          (float)(SDL_rand(window_height / rect_size) * rect_size), rect_size,
-          rect_size};
+          (float)(SDL_rand(window_height / rect_size) * rect_size),
+          (float)rect_size, (float)rect_size};
 };
 
-SDL_FRect *Food::get_rect() { return &rect; }
+SDL_FRect *Food::get_rect() { return &rect; };
 
 SDL_Point Food::get_cordinates() {
   return (SDL_Point){.x = (int)rect.x, .y = (int)rect.y};
-};
-
-void Food::create(std::deque<SDL_FRect> &body) {
-  // ensure new food is not on top of snake
-  bool keep_creating{true};
-  while (keep_creating) {
-    keep_creating = false;
-    create_rect();
-    for (SDL_FRect snake_segment : body) {
-      if (snake_segment.x == rect.x && snake_segment.y == rect.y) {
-        keep_creating = true;
-        break;
-      }
-    }
-  }
 };

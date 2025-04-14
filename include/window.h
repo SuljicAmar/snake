@@ -5,19 +5,16 @@
 
 class Window {
 public:
-  Window(char *name, int window_width, int window_height);
+  Window();
 
-  ~Window();
+  void close();
 
-  bool create_window();
+  bool create_window(int window_width, int window_height);
 
   SDL_Window *get_window();
 
 private:
   SDL_Window *window{nullptr};
-  char *name;
-  int width;
-  int height;
 };
 
 #endif

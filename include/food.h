@@ -2,24 +2,19 @@
 #define FOOD_H
 
 #include <SDL3/SDL_rect.h>
-#include <SDL3/SDL_render.h>
-#include <deque>
 
 class Food {
 public:
   Food();
 
-  void draw(SDL_Renderer *renderer);
-
   SDL_FRect *get_rect();
 
   SDL_Point get_cordinates();
 
-  void create(std::deque<SDL_FRect> &body);
+  void create(int window_width, int window_height, int rect_size);
 
 private:
   SDL_FRect rect;
-  void create_rect();
 };
 
 #endif
