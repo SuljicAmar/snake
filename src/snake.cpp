@@ -52,6 +52,13 @@ void Snake::move(int rect_size) {
   }
 };
 
+// Next time better way to check collission between rects
+//  allows more freedom with rect size
+//    rect1.x < rect2.x + rect2.w &&
+//    rect1.x + rect1.w > rect2.x &&
+//    rect1.y < rect2.y + rect2.h &&
+//    rect1.y + rect1.h > rect2.y
+
 bool Snake::ate_food(SDL_Point food_cordinates) {
   // check collision with food
   if (head.x == food_cordinates.x && head.y == food_cordinates.y) {
