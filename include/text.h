@@ -14,9 +14,7 @@ public:
 
   void set_font(const char *font_path, float font_size);
 
-  void update_font_size(float font_size);
-
-  void set_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+  void set_color(SDL_Color new_color);
 
   void set_text(const char *message);
 
@@ -24,7 +22,6 @@ public:
 
 private:
   TTF_Font *font{nullptr};
-  SDL_Surface *surface{nullptr};
   SDL_Color color;
   const char *text{nullptr};
 };

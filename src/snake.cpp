@@ -13,22 +13,18 @@ void Snake::set_direction(SDL_Event event) {
     break;
   case SDL_SCANCODE_A:
   case SDL_SCANCODE_LEFT:
-
     if (direction != right) {
       direction = left;
     }
-
     break;
   case SDL_SCANCODE_S:
   case SDL_SCANCODE_DOWN:
-
     if (direction != up) {
       direction = down;
     }
     break;
   case SDL_SCANCODE_D:
   case SDL_SCANCODE_RIGHT:
-
     if (direction != left) {
       direction = right;
     }

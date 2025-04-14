@@ -5,10 +5,6 @@ Text::Text() {};
 void Text::close() {
   TTF_CloseFont(font);
   font = nullptr;
-
-  SDL_DestroySurface(surface);
-  surface = nullptr;
-
   TTF_Quit();
 };
 
@@ -23,13 +19,7 @@ void Text::set_font(const char *font_path, float font_size) {
   font = TTF_OpenFont(font_path, font_size);
 };
 
-void Text::update_font_size(float font_size) {
-  TTF_SetFontSize(font, font_size);
-}
-
-void Text::set_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-  color = SDL_Color{.r = r, .g = g, .b = b, .a = a};
-};
+void Text::set_color(SDL_Color new_color) { color = new_color; };
 
 void Text::set_text(const char *message) { text = message; };
 

@@ -5,11 +5,15 @@ Audio::Audio() {};
 void Audio::close() {
   Mix_FreeChunk(eat_sound_effect);
   eat_sound_effect = nullptr;
+
   Mix_FreeChunk(game_over_sound_effect);
   game_over_sound_effect = nullptr;
+
   Mix_FreeMusic(music);
   music = nullptr;
+
   Mix_CloseAudio();
+
   SDL_CloseAudioDevice(audio_device_id);
   audio_device_id = 0;
 };
@@ -33,7 +37,7 @@ void Audio::play_eat_sound_effect() {
 
 void Audio::set_music(const char *path) {
   music = Mix_LoadMUS(path);
-  Mix_VolumeMusic(24);
+  Mix_VolumeMusic(64);
 };
 
 void Audio::play_music() { Mix_PlayMusic(music, -1); };
